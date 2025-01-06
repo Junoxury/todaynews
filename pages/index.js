@@ -1,114 +1,192 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist } from "next/font/google";
+import styled from "styled-components";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const Container = styled.div`
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: #f0f4ff;
+`;
+
+const Header = styled.header`
+  margin-bottom: 3rem;
+  text-align: center;
+  background: linear-gradient(135deg, #6b46c1 0%, #805ad5 100%);
+  padding: 2rem;
+  border-radius: 20px;
+  color: white;
+  box-shadow: 0 4px 20px rgba(107, 70, 193, 0.2);
+`;
+
+const Title = styled.h1`
+  font-family: ${geistSans.style.fontFamily};
+  color: white;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+`;
+
+const Subtitle = styled.p`
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  margin-bottom: 0;
+`;
+
+const CardGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+`;
+
+const Card = styled.div`
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  border: 1px solid #e9ecef;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 25px rgba(107, 70, 193, 0.15);
+  }
+`;
+
+const CardImage = styled.div`
+  width: 100%;
+  height: 160px;
+  background-color: #e9ecef;
+  background-image: ${props => `url(${props.src})`};
+  background-size: cover;
+  background-position: center;
+`;
+
+const CardContent = styled.div`
+  padding: 1.5rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9ff 100%);
+`;
+
+const CardTitle = styled.h2`
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 0.75rem;
+`;
+
+const CardDescription = styled.p`
+  font-size: 0.95rem;
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+`;
+
+const CardMeta = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid #edf2ff;
+`;
+
+const CardDate = styled.span`
+  font-size: 0.85rem;
+  color: #718096;
+  display: flex;
+  align-items: center;
+  
+  &:before {
+    content: "📅";
+    margin-right: 0.5rem;
+  }
+`;
+
+const CardTag = styled.span`
+  background: ${props => {
+    switch (props.tag) {
+      case "프로그램":
+        return "#6b46c1";
+      case "신청":
+        return "#805ad5";
+      case "안내":
+        return "#9f7aea";
+      default:
+        return "#6b46c1";
+    }
+  }};
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+`;
 
 export default function Home() {
-  return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              pages/index.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const cards = [
+    {
+      id: 1,
+      title: "청년우대형 프로그램",
+      description: "2024년 상반기 청년우대형 프로그램 신청 안내",
+      image: "/program1.jpg",
+      date: "2024.01.06",
+      tag: "프로그램"
+    },
+    {
+      id: 2,
+      title: "프로그램 기간 연장",
+      description: "프로그램 기간이 2024년 5월 11일까지 연장되었습니다",
+      image: "/program2.jpg",
+      date: "2024.01.06",
+      tag: "안내"
+    },
+    {
+      id: 3,
+      title: "신청 서류 준비",
+      description: "프로그램 신청을 위한 필수 서류 안내",
+      image: "/program3.jpg",
+      date: "2024.01.06",
+      tag: "신청"
+    },
+    {
+      id: 4,
+      title: "프로그램 설명회",
+      description: "온라인 프로그램 설명회 참여 안내",
+      image: "/program4.jpg",
+      date: "2024.01.06",
+      tag: "안내"
+    }
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  return (
+    <main className={geistSans.className}>
+      <Container>
+        <Header>
+          <Title>청년우대형 프로그램</Title>
+          <Subtitle>2024년 상반기 프로그램 안내</Subtitle>
+        </Header>
+        <CardGrid>
+          {cards.map(card => (
+            <Card key={card.id}>
+              <CardImage src={card.image} />
+              <CardContent>
+                <CardTitle>{card.title}</CardTitle>
+                <CardDescription>{card.description}</CardDescription>
+                <CardMeta>
+                  <CardDate>{card.date}</CardDate>
+                  <CardTag tag={card.tag}>{card.tag}</CardTag>
+                </CardMeta>
+              </CardContent>
+            </Card>
+          ))}
+        </CardGrid>
+      </Container>
+    </main>
   );
 }
+
